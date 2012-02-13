@@ -1,0 +1,30 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+$lang['rotating_images_manage']			= 'Manage Rotating Images';
+$lang['rotating_images_edit']				= 'Edit';
+$lang['rotating_images_true']				= 'True';
+$lang['rotating_images_false']				= 'False';
+$lang['rotating_images_create']			= 'Create';
+$lang['rotating_images_delete']			= 'Delete';
+$lang['rotating_images_edit_text']			= '&nbsp;';
+$lang['rotating_images_no_records']			= 'There aren\'t any Rotating Images in the system.';
+$lang['rotating_images_create_new']			= 'Create a new Rotating Image.';
+$lang['rotating_images_create_success']			= 'Rotating Image successfully created.';
+$lang['rotating_images_create_failure']			= 'There was a problem creating the Rotating Image: ';
+$lang['rotating_images_create_new_button']			= 'Create a New Rotating Image';
+$lang['rotating_images_invalid_id']			= 'Invalid Rotating Image ID.';
+$lang['rotating_images_edit_success']			= 'Rotating Image successfully saved.';
+$lang['rotating_images_edit_failure']			= 'There was a problem saving the Rotating Image: ';
+$lang['rotating_images_delete_success']			= 'The Rotating Image was successfully deleted.';
+$lang['rotating_images_delete_failure']			= 'We could not delete the Rotating Image: ';
+$lang['rotating_images_actions']			= 'Actions';
+$lang['rotating_images_cancel']			= 'Cancel';
+$lang['rotating_images_delete_record']			= 'Delete this Rotating Image';
+$lang['rotating_images_delete_confirm']			= 'Are you sure you want to delete this Rotating Image?';
+$lang['rotating_images_edit_heading']			= 'Edit Rotating Image';
+
+// Activities
+$lang['rotating_images_act_create_record']			 = 'Created record with ID';
+$lang['rotating_images_act_edit_record']			   = 'Updated record with ID';
+$lang['rotating_images_act_delete_record']			 = 'Deleted record with ID';
+$lang['rotating_images_act_delete_file']			   = 'Deleted file with ID';
+$lang['rotating_images_act_delete_file_failed']	 = 'Failed to Delete file with ID';
