@@ -14,15 +14,14 @@ class settings extends Admin_Controller {
 		
     $settings = $this->settings_model->find_all_by('module', 'rotating_images');
 
-    $ri_dir    = $settings['ri.directory'];
-    $ri_width  = $settings['ri.width'];
-    $ri_height = $settings['ri.height'];
-    $ri_resize = $settings['ri.resize'];
+		$data = array(
+									'ri_directory' => $settings['ri.directory'],
+									'ri_width'     => $settings['ri.width'],
+								  'ri_height'    => $settings['ri.height'],
+									'ri_resize'    => $settings['ri.resize']
+								 );
 
-    Template::set('ri_directory',$ri_dir);
-    Template::set('ri_width',$ri_width);
-    Template::set('ri_height',$ri_height);
-    Template::set('ri_resize',$ri_resize);
+		Template::set('data', $data );
 		
 	}
 	
@@ -82,16 +81,8 @@ class settings extends Admin_Controller {
 
     $this->form_validation->set_rules('ri_directory','Upload Directory','required|trim|xss_clean|max_length[100]');
     $this->form_validation->set_rules('ri_width','Image Width','required|trim|xss_clean|max_length[5]');
-    $this->form_validation->set_rules('ri_height','Image Height','required|trim|xss_clean|max_length[5]');
+    $this->form_validation->set_rules('ri_height','Image Height','trim|xss_clean|max_length[5]');
     $this->form_validation->set_rules('ri_resize','Image Resize','trim|xss_clean|max_length[1]');
-
-/*
-    if ( $this->input->post('ga_enabled') != 0 )
-    {
-      $this->form_validation->set_rules('ga_profile','Profile id','trim|xss_clean|max_length[100]');
-      $this->form_validation->set_rules('ga_code','Code','required|trim|xss_clean|max_length[15]');
-    }
-*/
 
     if ($this->form_validation->run() === false)
     {

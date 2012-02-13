@@ -27,9 +27,9 @@ $id = isset($rotating_images['id']) ? "/".$rotating_images['id'] : '';
 <?php endif; ?>
 
 <div>
-  <label for="rotating_images_caption">Title</label>
+  <label for="caption">Title</label>
   <span class="required">*</span>
-  <input id="rotating_images_caption" type="text" name="rotating_images_caption" maxlength="255" value="<?php echo set_value('rotating_images_caption', isset($rotating_images['rotating_images_caption']) ? $rotating_images['rotating_images_caption'] : ''); ?>"  />
+  <input id="caption" type="text" name="caption" maxlength="255" value="<?php echo set_value('caption', isset($rotating_images['caption']) ? $rotating_images['caption'] : ''); ?>"  />
 </div>
 
 <div>
@@ -38,15 +38,15 @@ $id = isset($rotating_images['id']) ? "/".$rotating_images['id'] : '';
 </div>
 
 <div>
-  <label for="rotating_images_weight">Order</label>
+  <label for="weight">Order</label>
   <span class="required">*</span>
-  <input id="rotating_images_weight" type="text" name="rotating_images_weight" maxlength="3" value="<?php echo set_value('rotating_images_weight', isset($rotating_images['rotating_images_weight']) ? $rotating_images['rotating_images_weight'] : ''); ?>"  />
+  <input id="weight" type="text" name="weight" maxlength="3" value="<?php echo set_value('weight', isset($rotating_images['weight']) ? $rotating_images['weight'] : ''); ?>"  />
 </div>
 
 <div>
-  <label for="rotating_images_active">Active</label>
+  <label for="active">Active</label>
   <span class="required">*</span>
-  <input type="checkbox" class="iphone-ui" id="rotating_images_active" name="rotating_images_active" value="1" <?php echo (isset($rotating_images['rotating_images_active']) && $rotating_images['rotating_images_active'] == 1) ? 'checked="checked"' : set_checkbox('rotating_images_active', 1); ?>>
+  <input type="checkbox" class="iphone-ui" id="active" name="active" value="1" <?php echo (isset($rotating_images['active']) && $rotating_images['active'] == 1) ? 'checked="checked"' : set_checkbox('active', 1); ?>>
 	
 </div>
 

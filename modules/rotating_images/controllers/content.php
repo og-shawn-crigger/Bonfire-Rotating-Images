@@ -6,7 +6,8 @@ class content extends Admin_Controller {
   private $image_path_url;
   private $image_width;
   private $image_height;
-
+	private $image_resize;
+	
   //--------------------------------------------------------------------
 
   public function __construct()
@@ -17,11 +18,14 @@ class content extends Admin_Controller {
     $this->load->model('rotating_images_model', null, true);
     $this->lang->load('rotating_images');
 
-    $this->image_path     = realpath ( APPPATH . '../../assets/uploads/rotating');
-    $this->image_path_url = base_url().'assets/uploads/rotating';
-    $this->image_height   = 274;
-    $this->image_width    = 448;
-
+    $settings = $this->settings_model->find_all_by('module', 'rotating_images');
+		
+    $this->image_path     = realpath ( APPPATH . '../../' . $settings['ri.directory'] );
+    $this->image_path_url = base_url(). $settings['ri.directory'];
+    $this->image_height   = (int) $settings['ri.height'];
+    $this->image_width    = (int) $settings['ri.width'];
+		$this->image_resize   = (int) $settings['ri.resize'];
+		
 		Assets::add_css('flick/jquery-ui-1.8.13.custom.css');
 		Assets::add_js('jquery-ui-1.8.8.min.js');
 
@@ -39,11 +43,14 @@ class content extends Admin_Controller {
     $data = array();
     $data['records'] = $this->rotating_images_model->find_all();
 
+/*
+ Uncomment the below section if you have the data tables javascript in the correct directorys
 		Assets::clear_cache();
     Assets::add_js('jquery.dataTables.min.js');
     Assets::add_js('datatable_plugins.min.js');
 
     Assets::add_module_css('activities', 'datatable.css');
+*/
 
     Assets::add_js($this->load->view('content/js', null, true), 'inline');
 
@@ -141,12 +148,13 @@ class content extends Admin_Controller {
       $file = $id;
       if ( $rimg = $this->rotating_images_model->find($id) )
       {
-        $rimg = $rimg->rotating_images_image;
+        $rimg = $rimg->image;
         $file = $rimg;
         $rimg = $this->image_path . '/' . $rimg;
         
         
-        if ( file_exists ( $rimg ) ) {
+        if ( file_exists ( $rimg ) )
+				{
          $res = unlink ( $rimg );
         }            
         
@@ -193,10 +201,9 @@ class content extends Admin_Controller {
 
     $uploaded_file = false;
 
-		$this->form_validation->set_rules('rotating_images_caption','Title','required|trim|xss_clean|alpha_extra|max_length[255]');
-//		$this->form_validation->set_rules('rotating_images_image','Image','max_length[200]');
-		$this->form_validation->set_rules('rotating_images_weight','Order','required|trim|xss_clean|integer|max_length[3]');
-		$this->form_validation->set_rules('rotating_images_active','Active','required|max_length[1]');
+		$this->form_validation->set_rules('caption','Title','required|trim|xss_clean|alpha_extra|max_length[255]');
+		$this->form_validation->set_rules('weight','Order','required|trim|xss_clean|integer|max_length[3]');
+		$this->form_validation->set_rules('active','Active','required|max_length[1]');
 
     if ( isset ( $_FILES['fileupload'] ) && !empty ( $_FILES['fileupload']['name'] ) )
     {
@@ -215,12 +222,12 @@ class content extends Admin_Controller {
 		// make sure we only pass in the fields we want
 
 		$data = array();
-		$data['rotating_images_caption']       = $this->input->post('rotating_images_caption');
-		$data['rotating_images_weight']        = $this->input->post('rotating_images_weight');
-		$data['rotating_images_active']        = $this->input->post('rotating_images_active');
+		$data['caption']       = $this->input->post('caption');
+		$data['weight']        = $this->input->post('weight');
+		$data['active']        = $this->input->post('active');
 
     if ( $uploaded_file === true )
-      $data['rotating_images_image']       = $filename; //$this->input->post('rotating_images_image');
+      $data['image']       = $filename; //$this->input->post('image');
 
 		if ( $type == 'insert' )
 		{
@@ -239,11 +246,7 @@ class content extends Admin_Controller {
 
   private function do_upload()
   {
-    $config['upload_path']   = APPPATH . '../../assets/uploads/';
-
-//                  'max_width'     => '448',
-//                  'max_height'    => '274'
-
+		
     $config = array('upload_path'   => $this->image_path,
                     'allowed_types' => 'gif|jpg|png',
                     'max_size'      => '6000'
@@ -316,7 +319,7 @@ class content extends Admin_Controller {
 		foreach($ids as $id)
 		{
 			// Update the position
-			$data['rotating_images_weight'] = $pos;
+			$data['weight'] = $pos;
 			$this->navigation_model->update($id, $data);
 			++$pos;
 		}

@@ -22,6 +22,9 @@ function update_order(event, ui) {
 	});
 }
 
+<?php
+/*
+ Uncomment this section if you use datatables sortable tables
 $("#flex_table").dataTable({
 		"sDom": '<"top"fpi>rt',
 		"sPaginationType": "listbox",
@@ -31,3 +34,6 @@ $("#flex_table").dataTable({
 		"aaSorting": [[3,'desc']],
 		"bAutoWidth": false
     });
+    
+*/
+?>

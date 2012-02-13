@@ -6,7 +6,8 @@ class rotating_images extends Front_Controller {
   private $image_path_url;
   private $image_width;
   private $image_height;
-
+	private $image_resize;
+	
   //--------------------------------------------------------------------
 
   public function __construct()
@@ -15,15 +16,17 @@ class rotating_images extends Front_Controller {
 
     $this->load->model('rotating_images_model', null, true);
     $this->lang->load('rotating_images');
-    $this->image_path     = realpath ( APPPATH . '../../assets/uploads/rotating');
-    $this->image_path_url = base_url().'assets/uploads/rotating/';
-    $this->image_height   = 274;
-    $this->image_width    = 448;
+		
+    $settings = $this->settings_model->find_all_by('module', 'rotating_images');
+		
+    $this->image_path     = realpath ( APPPATH . '../../' . $settings['ri.directory'] );
+    $this->image_path_url = base_url(). $settings['ri.directory'];
+    $this->image_height   = (int) $settings['ri.height'];
+    $this->image_width    = (int) $settings['ri.width'];
 
-    $data['height'] = $this->image_height';
+    $data['height'] = $this->image_height;
 
-//    Assets::add_module_js('rotating_images','jquery.innerfade.js');
-//    Assets::add_js(base_url() .'assets/js/jquery.innerfade.min.js','external');
+    Assets::add_module_js('rotating_images','jquery.innerfade.js');
     Assets::add_js( $this->load->view('rotating_images/js', $data, true) , 'inline');
 
   }
@@ -55,10 +58,10 @@ class rotating_images extends Front_Controller {
     {
       $record = (array) $record;
 
-      if ( is_file ( $path . '/'. $record['rotating_images_image'] ) )
+      if ( is_file ( $path . '/'. $record['image'] ) )
       {
-        $image = $url . $record['rotating_images_image'];
-        $title = ' title ="' . js_addslashes ( $record['rotating_images_caption'] ) . '" ';
+        $image = $url . $record['image'];
+        $title = ' title ="' . $record['caption'] . '" ';
         $list .= '    <li>' . PHP_EOL;
         $list .= '      <img src="' . $image . '" ' . $attr . $title . ' />' . PHP_EOL;
         $list .= '    </li>' . PHP_EOL;

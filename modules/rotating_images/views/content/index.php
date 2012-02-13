@@ -32,10 +32,10 @@
 		<?php foreach ($records as $record) : ?>
 			<tr>
 				
-				<td><?php echo form_hidden('action_to[]', $record->id); ?><?php echo $record->rotating_images_caption?></td>
-				<td style="text-align:center;"><?php echo $record->rotating_images_image?></td>
-<!--				<td><?php echo $record->rotating_images_weight?></td> -->
-				<td style="text-align:center;"><?php echo yes_no ($record->rotating_images_active);?></td>
+				<td><?php echo form_hidden('action_to[]', $record->id); ?><?php echo $record->caption?></td>
+				<td style="text-align:center;"><?php echo $record->image?></td>
+<!--				<td><?php echo $record->weight?></td> -->
+				<td style="text-align:center;"><?php echo yes_no ($record->active);?></td>
 				<td  style="text-align:center;">
         <?php echo anchor(SITE_AREA .'/content/rotating_images/edit/'. $record->id, lang('rotating_images_edit'), ''); ?> | 
         <?php
