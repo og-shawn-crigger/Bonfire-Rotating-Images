@@ -20,9 +20,11 @@ class rotating_images extends Front_Controller {
     $this->image_height   = 274;
     $this->image_width    = 448;
 
+    $data['height'] = $this->image_height';
+
 //    Assets::add_module_js('rotating_images','jquery.innerfade.js');
 //    Assets::add_js(base_url() .'assets/js/jquery.innerfade.min.js','external');
-//    Assets::add_js( $this->load->view('rotating_images/indexjs', $data, true) , 'inline');
+    Assets::add_js( $this->load->view('rotating_images/js', $data, true) , 'inline');
 
   }
 
@@ -39,17 +41,6 @@ class rotating_images extends Front_Controller {
   */
   public function index()
   {
-
-  /*
-   Database Array Dump
-
-   [id] => 8
-   [rotating_images_caption] => testr
-   [rotating_images_image] => 0
-   [rotating_images_weight] => 2
-   [rotating_images_active] => 1 )
-
-  */
 
     $records = $this->rotating_images_model->find_all();
 
@@ -78,12 +69,8 @@ class rotating_images extends Front_Controller {
     $data['list'] = $list;
 
     return $this->load->view('rotating_images/index', $data, true);
-//    Template::set('data', $data);
-//    Template::render();
   }
 
 	//--------------------------------------------------------------------
-
-
 
 }
